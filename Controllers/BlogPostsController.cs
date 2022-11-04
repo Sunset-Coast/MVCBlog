@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechnicalBlog.Data;
 using TechnicalBlog.Models;
+using TechnicalBlog.Services.Interfaces;
 
 namespace TechnicalBlog.Controllers
 {
     public class BlogPostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IImageService _imageService;
 
-        public BlogPostsController(ApplicationDbContext context)
+        public BlogPostsController(ApplicationDbContext context, IImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
         // GET: BlogPosts
@@ -36,6 +39,8 @@ namespace TechnicalBlog.Controllers
 
             var blogPost = await _context.BlogPosts
                 .Include(b => b.Category)
+                .Include(b => b.Comments)
+                .ThenInclude(c => c.Author)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (blogPost == null)
             {
@@ -57,10 +62,18 @@ namespace TechnicalBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,DateCreated,LastUpdated,CategoryId,Slug,Abstract,IsDeleted,IsPublished,ImageData,ImageType")] BlogPost blogPost)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,BlogPostImage")] BlogPost blogPost)
         {
             if (ModelState.IsValid)
             {
+                blogPost.DateCreated = DateTime.UtcNow;
+
+                if(blogPost.BlogPostImage != null)
+                {
+                    blogPost.ImageData = await _imageService.ConvertFileToByteArrayAsync(blogPost.BlogPostImage);
+                    blogPost.ImageType = blogPost.BlogPostImage.ContentType;
+                }
+
                 _context.Add(blogPost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -91,7 +104,7 @@ namespace TechnicalBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,DateCreated,LastUpdated,CategoryId,Slug,Abstract,IsDeleted,IsPublished,ImageData,ImageType")] BlogPost blogPost)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,ImageType,ImageData,Slug,LastUpdated,DateCreated,BlogPostImage")] BlogPost blogPost)
         {
             if (id != blogPost.Id)
             {
@@ -102,6 +115,17 @@ namespace TechnicalBlog.Controllers
             {
                 try
                 {
+                    blogPost.DateCreated = DateTime.SpecifyKind(blogPost.DateCreated, DateTimeKind.Utc);
+
+                    blogPost.LastUpdated = DateTime.UtcNow;
+
+
+                    if (blogPost.BlogPostImage != null)
+                    {
+                        blogPost.ImageData = await _imageService.ConvertFileToByteArrayAsync(blogPost.BlogPostImage);
+                        blogPost.ImageType = blogPost.BlogPostImage.ContentType;
+                    }
+
                     _context.Update(blogPost);
                     await _context.SaveChangesAsync();
                 }

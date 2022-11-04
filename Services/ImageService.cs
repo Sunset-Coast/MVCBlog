@@ -4,18 +4,29 @@ namespace TechnicalBlog.Services
 {
     public class ImageService : IImageService
     {
-        private readonly string defaultImage = "/img/DefaultContactImage.png";
 
-        public string ConvertByteArrayToFile(byte[] fileData, string extension)
+        private readonly string _defaultBlogPostImageSrc = "/img/coffeePlant.jpg";
+        private readonly string _defaultCategoryImageSrc = "/img/Ball.png";
+        private readonly string _defaultUserImageSrc = "/img/GirlOne@4x.png";
+
+
+        public string ConvertByteArrayToFile(byte[] fileData, string extension, int defaultImage)
         {
-            if (fileData == null)
+            if (fileData == null || fileData.Length == 0)
             {
-                return defaultImage;
+                switch (defaultImage)
+                {
+                    case 1: return _defaultUserImageSrc;
+                    case 2: return _defaultBlogPostImageSrc;
+                    case 3: return _defaultCategoryImageSrc;
+                }
+
+                
             }
 
             try
             {
-                string imageBase64Data = Convert.ToBase64String(fileData);
+                string imageBase64Data = Convert.ToBase64String(fileData!);
                 string imageSrcString = string.Format($"data:{extension};base64,{imageBase64Data}");
 
                 return imageSrcString;

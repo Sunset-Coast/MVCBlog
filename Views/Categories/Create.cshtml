@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" asp-controller="Categories" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -22,15 +22,16 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ImageData" class="control-label"></label>
-                <input asp-for="ImageData" class="form-control" />
-                <span asp-validation-for="ImageData" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageType" class="control-label"></label>
-                <input asp-for="ImageType" class="form-control" />
-                <span asp-validation-for="ImageType" class="text-danger"></span>
+
+            <div class="col-12 col-lg-4">
+                <div class="square-img-container">
+                    <img class="square-img" src="~/img/DefaultContactImage.png" id="categoryImage">
+                </div>
+                <div>
+                    <label asp-for="CategoryImage" class="control-label"></label>
+                    <input asp-for="CategoryImage" class="form-control" accept=".png,.jpg,.jpeg,.gif"
+                           onchange="document.getElementById('categoryImage').src= window.URL.createObjectURL(this.files[0])">
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

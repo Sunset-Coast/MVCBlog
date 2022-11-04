@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechnicalBlog.Data;
 using TechnicalBlog.Models;
+using TechnicalBlog.Services.Interfaces;
 
 namespace TechnicalBlog.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IImageService _imageService;
 
-        public CategoriesController(ApplicationDbContext context)
+        public CategoriesController(ApplicationDbContext context, IImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
         // GET: Categories
@@ -54,10 +57,17 @@ namespace TechnicalBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,ImageData,ImageType")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,CategoryImage")] Category category)
         {
             if (ModelState.IsValid)
             {
+
+                if (category.CategoryImage != null)
+                {
+                    category.ImageData = await _imageService.ConvertFileToByteArrayAsync(category.CategoryImage);
+                    category.ImageType = category.CategoryImage.ContentType;
+                }
+
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +96,7 @@ namespace TechnicalBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,ImageData,ImageType")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CategoryImage")] Category category)
         {
             if (id != category.Id)
             {
@@ -95,6 +105,13 @@ namespace TechnicalBlog.Controllers
 
             if (ModelState.IsValid)
             {
+
+                if (category.CategoryImage != null)
+                {
+                    category.ImageData = await _imageService.ConvertFileToByteArrayAsync(category.CategoryImage);
+                    category.ImageType = category.CategoryImage.ContentType;
+                }
+
                 try
                 {
                     _context.Update(category);

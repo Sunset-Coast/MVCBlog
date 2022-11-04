@@ -1,4 +1,8 @@
 ﻿@model IEnumerable<TechnicalBlog.Models.Category>
+@using TechnicalBlog.Enums
+@using TechnicalBlog.Services.Interfaces
+
+@inject IImageService ImageService
 
 @{
     ViewData["Title"] = "Index";
@@ -37,7 +41,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageData)
+                    <img src="@ImageService.ConvertByteArrayToFile(item.ImageData!, item.ImageType!, (int)DefaultImage.CategoryImage)" class="img-fluid" alt="...">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImageType)
