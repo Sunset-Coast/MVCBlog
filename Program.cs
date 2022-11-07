@@ -8,7 +8,7 @@ using TechnicalBlog.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = DataUtility.GetConnectionString(builder.Configuration);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -19,13 +19,22 @@ builder.Services.AddIdentity<BlogUser, IdentityRole>(options => options.SignIn.R
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+// Custom Services
 
 builder.Services.AddScoped<IImageService, ImageService>();
 
-
-builder.Services.AddControllersWithViews();
+//Full control of mvc
+builder.Services.AddMvc();
 
 var app = builder.Build();
+
+//Todo: Call Managed data
+
+var scope = app.Services.CreateScope();
+await DataUtility.ManageDataAysnc(scope.ServiceProvider);
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
