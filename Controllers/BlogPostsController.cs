@@ -2,27 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechnicalBlog.Data;
+using TechnicalBlog.Extensions;
 using TechnicalBlog.Models;
 using TechnicalBlog.Services.Interfaces;
 
 namespace TechnicalBlog.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class BlogPostsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IImageService _imageService;
+        private readonly IBlogPostService _blogPostService;
 
-        public BlogPostsController(ApplicationDbContext context, IImageService imageService)
+        public BlogPostsController(ApplicationDbContext context, IImageService imageService, IBlogPostService blogPostService)
         {
             _context = context;
             _imageService = imageService;
+            _blogPostService = blogPostService;
         }
 
         // GET: BlogPosts
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.BlogPosts.Include(b => b.Category);
@@ -30,9 +36,10 @@ namespace TechnicalBlog.Controllers
         }
 
         // GET: BlogPosts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string? slug)
         {
-            if (id == null || _context.BlogPosts == null)
+            if (string.IsNullOrEmpty(slug))
             {
                 return NotFound();
             }
@@ -41,7 +48,7 @@ namespace TechnicalBlog.Controllers
                 .Include(b => b.Category)
                 .Include(b => b.Comments)
                 .ThenInclude(c => c.Author)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Slug == slug);
             if (blogPost == null)
             {
                 return NotFound();
@@ -66,6 +73,18 @@ namespace TechnicalBlog.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                // Get Slug
+                if (!await _blogPostService.ValidateSlugAsync(blogPost.Title!,blogPost.Id))
+                {
+                    ModelState.AddModelError("Title","A similiar Title or Slug has already been used!");
+                    ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+                    return View(blogPost);
+                }
+                blogPost.Slug = blogPost.Title!.Slugify();
+
+
+
                 blogPost.DateCreated = DateTime.UtcNow;
 
                 if(blogPost.BlogPostImage != null)
@@ -125,6 +144,15 @@ namespace TechnicalBlog.Controllers
                         blogPost.ImageData = await _imageService.ConvertFileToByteArrayAsync(blogPost.BlogPostImage);
                         blogPost.ImageType = blogPost.BlogPostImage.ContentType;
                     }
+
+                    if (!await _blogPostService.ValidateSlugAsync(blogPost.Title!, blogPost.Id))
+                    {
+                        ModelState.AddModelError("Title", "A similiar Title or Slug has already been used!");
+                        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+                        return View(blogPost);
+                    }
+                    blogPost.Slug = blogPost.Title!.Slugify();
+
 
                     _context.Update(blogPost);
                     await _context.SaveChangesAsync();
