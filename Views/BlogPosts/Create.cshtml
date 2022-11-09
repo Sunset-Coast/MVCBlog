@@ -1,16 +1,22 @@
 ﻿@model TechnicalBlog.Models.BlogPost
+@using TechnicalBlog.Enums
+@using TechnicalBlog.Services.Interfaces
+
+@inject IImageService ImageService
 
 @{
     ViewData["Title"] = "Create";
 }
 
+<div class="post-single-wrapper axil-section-gap bg-color-white">
+<div class="container">
+<div class="row">
+    <div class="col-md-4">
 <h1>Create</h1>
 
 <h4>BlogPost</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <form asp-action="Create" method="post" asp-controller="BlogPosts" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -28,26 +34,32 @@
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
+            <div class="form-group">
+                        <label asp-for="Tags" class="control-label"></label>
+                        <select name="SelectedTags" class="form-control" asp-items="ViewBag.BlogPostTags" multiple></select>
+            </div>
         
             <div class="form-group">
                 <label asp-for="Abstract" class="control-label"></label>
                 <input asp-for="Abstract" class="form-control" />
                 <span asp-validation-for="Abstract" class="text-danger"></span>
             </div>
+
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
-                </label>
+                <input class="form-check-input" asp-for="IsDeleted" />
+                <label class="form-check-label" asp-for="IsDeleted"> </label>
+                <span asp-validation-for="IsDeleted" class="text-danger"></span>
             </div>
+
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
-                </label>
+                <input class="form-check-input" asp-for="IsPublished" />
+                <label class="form-check-label" asp-for="IsPublished"> </label>
+                <span asp-validation-for="IsPublished" class="text-danger"></span>
             </div>
 
             <div class="col-12 col-lg-4">
                 <div class="square-img-container">
-                    <img class="square-img" src="~/img/DefaultContactImage.png" id="blogPostImage">
+                    <img class="square-img" src="@ImageService.ConvertByteArrayToFile(Model.ImageData!,Model.ImageType!, (int)DefaultImage.BlogPostImage)" id="blogPostImage">
                 </div>
                 <div>
                     <label asp-for="BlogPostImage" class="control-label"></label>
@@ -61,10 +73,12 @@
             </div>
         </form>
     </div>
-</div>
-
 <div>
     <a asp-action="Index">Back to List</a>
+</div>
+
+</div>
+</div>
 </div>
 
 @section Scripts {

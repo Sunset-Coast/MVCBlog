@@ -31,6 +31,95 @@ namespace TechnicalBlog.Services
 			}
 		}
 
+		public Task<List<Tag>> GetBlogPostTags(int blogPostId)
+		{
+			try
+			{
+				//display all the blogs that have the tags get the query to return those tags
+				return ();
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+
+		public async Task<List<Category>> GetCategoriesAsync()
+		{
+			try
+			{
+				//List<Category> categories = await _context.Categories.ToListAsync();
+
+				return await _context.Categories.Include(c => c.BlogPosts).ToListAsync();
+					
+				
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+
+		public async Task<List<BlogPost>> GetPopularBlogPostsAsync()
+		{
+			try
+			{
+				List<BlogPost> blogPosts = await _context.BlogPosts
+                                                         .Where(b => b.IsDeleted == false && b.IsPublished == true)
+														 .Include(b=>b.Comments)
+															.ThenInclude(c=>c.Author)
+														 .Include(b=>b.Category)
+														 .Include(b=>b.Tags)
+                                                         .ToListAsync();
+
+				return blogPosts.OrderByDescending(b=>b.Comments.Count).ToList();
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+
+		public async Task<List<BlogPost>> GetRecentBlogPostAsync(int count)
+		{
+			try
+			{
+                List<BlogPost> blogPosts = await _context.BlogPosts
+                                                         .Where(b => b.IsDeleted == false && b.IsPublished == true)
+                                                         .Include(b => b.Comments)
+                                                            .ThenInclude(c => c.Author)
+                                                         .Include(b => b.Category)
+                                                         .Include(b => b.Tags)
+                                                         .ToListAsync();
+
+				return blogPosts.OrderByDescending(b=>b.DateCreated).Take(count).ToList();
+            }
+			catch (Exception)
+			{
+
+				throw;
+			}
+		}
+
+		public async Task<List<Tag>> GetTagsAsync()
+		{
+			try
+			{
+				List<Tag> Tags = await _context.Tags.Include(c => c.BlogPosts).ToListAsync();
+
+				return Tags;
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+
+		}
+
 		public async Task<bool> ValidateSlugAsync(string title, int blogPostId)
         {
 			try

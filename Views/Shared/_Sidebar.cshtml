@@ -1,5 +1,12 @@
-﻿  @{
+﻿@using TechnicalBlog.Services
+@using TechnicalBlog.Services.Interfaces
+@using TechnicalBlog.Enums
 
+@inject IImageService ImageService
+@inject IBlogPostService BlogPostService
+
+@{
+    ViewData["Title"] = "Home Page";
 
   }
  
@@ -14,48 +21,23 @@
     <!-- Start Single Widget  -->
     <div class="axil-single-widget widget widget_categories mb--30">
         <ul>
+            @foreach (Category category in (await BlogPostService.GetCategoriesAsync()).Take(4)){
+
             <li class="cat-item">
-                <a href="#" class="inner">
+                <a href="#" class="inner" @*asp-controller="Category" asp-action="Details" asp-route-slug="@blogPost.Slug" class="inner"*@>
                     <div class="thumbnail">
-                        <img src="~/assets/images/post-images/category-image-01.jpg" alt="">
+                            <img src="@ImageService.ConvertByteArrayToFile(category.ImageData!, category.ImageType!, (int)DefaultImage.CategoryImage)" alt="Post Images">
                     </div>
                     <div class="content">
-                        <h5 class="title">Tech</h5>
+                        <h5 class="title">@category.Name</h5>
                     </div>
                 </a>
             </li>
-            <li class="cat-item">
-                <a href="#" class="inner">
-                    <div class="thumbnail">
-                        <img src="~/assets/images/post-images/category-image-02.jpg" alt="">
-                    </div>
-                    <div class="content">
-                        <h5 class="title">Style</h5>
-                    </div>
-                </a>
-            </li>
-            <li class="cat-item">
-                <a href="#" class="inner">
-                    <div class="thumbnail">
-                        <img src="~/assets/images/post-images/category-image-03.jpg" alt="">
-                    </div>
-                    <div class="content">
-                        <h5 class="title">Travel</h5>
-                    </div>
-                </a>
-            </li>
-            <li class="cat-item">
-                <a href="#" class="inner">
-                    <div class="thumbnail">
-                        <img src="~/assets/images/post-images/category-image-04.jpg" alt="">
-                    </div>
-                    <div class="content">
-                        <h5 class="title">Food</h5>
-                    </div>
-                </a>
-            </li>
+            }
         </ul>
     </div>
+
+
     <!-- End Single Widget  -->
     <!-- Start Single Widget  -->
     <div class="axil-single-widget widget widget_search mb--30">
@@ -70,78 +52,78 @@
     <!-- End Single Widget  -->
     <!-- Start Single Widget  -->
     <div class="axil-single-widget widget widget_postlist mb--30">
-        <h5 class="widget-title">Popular on Blogar</h5>
+        <h5 class="widget-title">Hottest Posts to Date</h5>
         <!-- Start Post List  -->
         <div class="post-medium-block">
 
             <!-- Start Single Post  -->
-            <div class="content-block post-medium mb--20">
-                <div class="post-thumbnail">
-                    <a href="post-details.html">
-                        <img src="~/assets/images/small-images/blog-sm-01.jpg" alt="Post Images">
-                    </a>
-                </div>
-                <div class="post-content">
-                    <h6 class="title">
-                        <a href="post-details.html">
-                            The underrated design book that transformed the way I
-                            work
-                        </a>
-                    </h6>
-                    <div class="post-meta">
-                        <ul class="post-meta-list">
-                            <li>Feb 17, 2019</li>
-                            <li>300k Views</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Post  -->
-            <!-- Start Single Post  -->
-            <div class="content-block post-medium mb--20">
-                <div class="post-thumbnail">
-                    <a href="post-details.html">
-                        <img src="~/assets/images/small-images/blog-sm-02.jpg" alt="Post Images">
-                    </a>
-                </div>
-                <div class="post-content">
-                    <h6 class="title">
-                        <a href="post-details.html">Here’s what you should (and shouldn’t) do when</a>
-                    </h6>
-                    <div class="post-meta">
-                        <ul class="post-meta-list">
-                            <li>Feb 17, 2019</li>
-                            <li>300k Views</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Post  -->
-            <!-- Start Single Post  -->
-            <div class="content-block post-medium mb--20">
-                <div class="post-thumbnail">
-                    <a href="post-details.html">
-                        <img src="~/assets/images/small-images/blog-sm-03.jpg" alt="Post Images">
-                    </a>
-                </div>
-                <div class="post-content">
-                    <h6 class="title">
-                        <a href="post-details.html">
-                            How a developer and designer duo at Deutsche Bank keep
-                            remote
-                        </a>
-                    </h6>
-                    <div class="post-meta">
-                        <ul class="post-meta-list">
-                            <li>Feb 17, 2019</li>
-                            <li>300k Views</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Post  -->
+            @foreach (BlogPost blogPost in (await BlogPostService.GetPopularBlogPostsAsync()).Take(4))
+            {
 
+            <div class="content-block post-medium mb--20">
+                <div class="post-thumbnail">
+                        <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@blogPost.Slug">
+                            <img src="@ImageService.ConvertByteArrayToFile(blogPost.ImageData!, blogPost.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
+                    </a>
+                </div>
+                <div class="post-content">
+                    <h6 class="title">
+                            <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@blogPost.Slug">
+                            @blogPost.Title
+                        </a>
+                    </h6>
+                    <div class="post-meta">
+                        <ul class="post-meta-list">
+                                <li>@blogPost.DateCreated.ToString("MMM dd, yyyy")</li>
+                            <li>@blogPost.Comments!.Count comments</li>
+                       
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            }
         </div>
+            <!-- End Single Post  -->
+   
+
+        <!-- End Post List  -->
+
+    </div>
+    <!-- End Single Widget  -->
+    <!-- Start Single Widget  -->
+    <div class="axil-single-widget widget widget_postlist mb--30">
+        <h5 class="widget-title">Newest Posts to Date</h5>
+        <!-- Start Post List  -->
+        <div class="post-medium-block">
+
+            <!-- Start Single Post  -->
+            @foreach (BlogPost blogPost in await BlogPostService.GetRecentBlogPostAsync(3))
+            {
+
+                <div class="content-block post-medium mb--20">
+                    <div class="post-thumbnail">
+                        <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@blogPost.Slug">
+                            <img src="@ImageService.ConvertByteArrayToFile(blogPost.ImageData!, blogPost.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        <h6 class="title">
+                            <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@blogPost.Slug">
+                                @blogPost.Title
+                            </a>
+                        </h6>
+                        <div class="post-meta">
+                            <ul class="post-meta-list">
+                                <li>@blogPost.DateCreated.ToString("MMM dd,yyyy")</li>
+                                <li>@blogPost.Comments!.Count comments</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- End Single Post  -->
         <!-- End Post List  -->
 
     </div>

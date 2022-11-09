@@ -58,10 +58,11 @@ namespace TechnicalBlog.Controllers
         }
 
         // GET: BlogPosts/Create
-        public IActionResult Create()
+        public async Task< IActionResult> Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
-            return View();
+            ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name");
+            return View(new BlogPost());
         }
 
         // POST: BlogPosts/Create

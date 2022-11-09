@@ -2,6 +2,7 @@
 @using TechnicalBlog.Services.Interfaces
 @model IEnumerable<TechnicalBlog.Models.BlogPost>
 @inject IImageService ImageService
+@inject IBlogPostService BlogPostService
 
 
 
@@ -54,12 +55,14 @@
                 </div>
             </div>
             <div class="col-lg-8 col-xl-8">
-              @foreach(BlogPost post in Model)
+
+
+                @foreach (BlogPost post in await BlogPostService.GetRecentBlogPostAsync(3))
               {
                 <!-- Start Post List  -->
                 <div class="content-block post-list-view mt--30">
                     <div class="post-thumbnail">
-                        <a asp-controller="BlogPosts" asp-action="Details" asp-route-id="@post.Id">
+                        <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@post.Slug">
                             <img src="@ImageService.ConvertByteArrayToFile(post.ImageData!, post.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
                         </a>
                     </div>
@@ -74,7 +77,7 @@
                             </div>
                         </div>
                         <h4 class="title">
-                                <a asp-controller="BlogPosts" asp-action="Details" asp-route-id="@post.Id">
+                                <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@post.Slug">
                                @post.Title
                             </a>
                         </h4>
@@ -89,7 +92,7 @@
                                         </a>
                                     </h6>
                                     <ul class="post-meta-list">
-                                        <li>Feb 17, 2019</li>
+                                  
                                         <li>@post.DateCreated.ToString("MMM dd, yyyy")</li>
                                         <li>@post.Comments!.Count comments</li>
                                     </ul>

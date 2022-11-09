@@ -1,4 +1,8 @@
-﻿@model TechnicalBlog.Models.BlogPost
+﻿@using TechnicalBlog.Enums
+@using TechnicalBlog.Services.Interfaces
+@model TechnicalBlog.Models.BlogPost
+
+@inject IImageService ImageService
 
 @{
     ViewData["Title"] = "Edit";
@@ -42,19 +46,20 @@
                 <span asp-validation-for="Abstract" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
-                </label>
+                <input class="form-check-input" asp-for="IsDeleted" />
+                <label class="form-check-label" asp-for="IsDeleted"> </label>
+                <span asp-validation-for="IsDeleted" class="text-danger"></span>
             </div>
+
             <div class="form-group form-check">
-                <label class="form-check-label"> </label>
-                    <input class="form-check-input" asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
-               
+                <input class="form-check-input" asp-for="IsPublished" />
+                <label class="form-check-label" asp-for="IsPublished"> </label>
+                <span asp-validation-for="IsPublished" class="text-danger"></span>
             </div>
 
             <div class="col-12 col-lg-4">
                 <div class="square-img-container">
-                    <img class="square-img" src="~/img/DefaultContactImage.png" id="blogPostImage">
+                    <img class="square-img" src="@ImageService.ConvertByteArrayToFile(Model.ImageData!,Model.ImageType!, (int)DefaultImage.BlogPostImage)" id="blogPostImage">
                 </div>
                 <div>
                     <label asp-for="BlogPostImage" class="control-label"></label>
