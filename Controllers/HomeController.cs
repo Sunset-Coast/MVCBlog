@@ -4,6 +4,7 @@ using System.Diagnostics;
 using TechnicalBlog.Data;
 using TechnicalBlog.Models;
 using TechnicalBlog.Services.Interfaces;
+using X.PagedList;
 
 namespace TechnicalBlog.Controllers
 {
@@ -21,9 +22,13 @@ namespace TechnicalBlog.Controllers
         }
 
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNum)
         {
-            List<BlogPost> model = (await _blogPostService.GetAllBlogPostsAsync()).Where(b=> b.IsDeleted == false && b.IsPublished == true).ToList();
+            int pageSize = 3;
+            int page = pageNum ?? 1;
+
+
+            IPagedList<BlogPost> model = (await _blogPostService.GetAllBlogPostsAsync()).Where(b=> b.IsDeleted == false && b.IsPublished == true).ToPagedList(page, pageSize);
 
 
             return View(model);

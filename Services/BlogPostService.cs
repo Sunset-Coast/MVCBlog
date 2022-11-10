@@ -16,7 +16,35 @@ namespace TechnicalBlog.Services
 			_context = context;
 		}
 
-		public async Task<List<BlogPost>> GetAllBlogPostsAsync()
+        public async Task AddTagsToBlogPostAsync(IEnumerable<int> tagIds, int blogPostId)
+        {
+            try
+            {
+                BlogPost? blogPost = await _context.BlogPosts.FindAsync(blogPostId);
+
+                foreach (int tagId in tagIds)
+                {
+                    Tag? tag = await _context.Tags.FindAsync(tagId);
+
+                    if (blogPost != null && tag != null)
+                    {
+                        // category.Contacts.Add(contact);
+
+                        blogPost.Tags.Add(tag);
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<List<BlogPost>> GetAllBlogPostsAsync()
 		{
 			try
 			{
@@ -31,20 +59,7 @@ namespace TechnicalBlog.Services
 			}
 		}
 
-		public Task<List<Tag>> GetBlogPostTags(int blogPostId)
-		{
-			try
-			{
-				//display all the blogs that have the tags get the query to return those tags
-				return ();
-			}
-			catch (Exception)
-			{
-
-				throw;
-			}
-		}
-
+	
 		public async Task<List<Category>> GetCategoriesAsync()
 		{
 			try
@@ -108,7 +123,7 @@ namespace TechnicalBlog.Services
 		{
 			try
 			{
-				List<Tag> Tags = await _context.Tags.Include(c => c.BlogPosts).ToListAsync();
+				List<Tag> Tags = await _context.Tags.Include(t => t.BlogPosts).ToListAsync();
 
 				return Tags;
 			}
@@ -120,7 +135,24 @@ namespace TechnicalBlog.Services
 
 		}
 
-		public async Task<bool> ValidateSlugAsync(string title, int blogPostId)
+        public async Task RemoveAllBlogPostTagsAysnc(int blogPostId)
+        {
+            try
+            {
+                BlogPost? blogPost = await _context.BlogPosts.Include(b => b.Tags).FirstOrDefaultAsync(b => b.Id == blogPostId);
+
+                blogPost!.Tags.Clear();
+                _context.Update(blogPost);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<bool> ValidateSlugAsync(string title, int blogPostId)
         {
 			try
 			{
@@ -153,5 +185,6 @@ namespace TechnicalBlog.Services
 				throw;
 			}
         }
+
     }
 }

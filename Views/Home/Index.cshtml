@@ -1,6 +1,10 @@
-﻿@using TechnicalBlog.Enums
+﻿@model IPagedList<TechnicalBlog.Models.BlogPost>
+
+@using X.PagedList
+@using TechnicalBlog.Enums
 @using TechnicalBlog.Services.Interfaces
-@model IEnumerable<TechnicalBlog.Models.BlogPost>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
 @inject IImageService ImageService
 @inject IBlogPostService BlogPostService
 
@@ -54,10 +58,11 @@
                     <h2 class="title mb--40">Articles By This Author</h2>
                 </div>
             </div>
+
             <div class="col-lg-8 col-xl-8">
 
 
-                @foreach (BlogPost post in await BlogPostService.GetRecentBlogPostAsync(3))
+                @foreach (BlogPost post in Model)
               {
                 <!-- Start Post List  -->
                 <div class="content-block post-list-view mt--30">
@@ -95,6 +100,7 @@
                                   
                                         <li>@post.DateCreated.ToString("MMM dd, yyyy")</li>
                                         <li>@post.Comments!.Count comments</li>
+                                        
                                     </ul>
                                 </div>
                             </div>
@@ -110,6 +116,16 @@
                 <!-- End Post List  -->
               }
             </div>
+
+            <div>
+                <div>
+                    Page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
+</div>
+                <div>
+                    @Html.PagedListPager(Model, pageNum => Url.Action("Index", new {pageNum} ))
+                </div>
+            </div>
+
             <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">
                   <partial name= "_Sidebar" />
 

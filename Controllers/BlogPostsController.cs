@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +20,14 @@ namespace TechnicalBlog.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IImageService _imageService;
         private readonly IBlogPostService _blogPostService;
+        private readonly IEmailSender _emailSender;
 
-        public BlogPostsController(ApplicationDbContext context, IImageService imageService, IBlogPostService blogPostService)
+        public BlogPostsController(ApplicationDbContext context, IImageService imageService, IBlogPostService blogPostService, IEmailSender emailSender)
         {
             _context = context;
             _imageService = imageService;
             _blogPostService = blogPostService;
+            _emailSender = emailSender;
         }
 
         // GET: BlogPosts
@@ -70,7 +73,7 @@ namespace TechnicalBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,BlogPostImage")] BlogPost blogPost)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,BlogPostImage")] BlogPost blogPost, IEnumerable<int> selectedTags)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +82,9 @@ namespace TechnicalBlog.Controllers
                 if (!await _blogPostService.ValidateSlugAsync(blogPost.Title!,blogPost.Id))
                 {
                     ModelState.AddModelError("Title","A similiar Title or Slug has already been used!");
+
                     ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+                    //ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name");
                     return View(blogPost);
                 }
                 blogPost.Slug = blogPost.Title!.Slugify();
@@ -96,26 +101,39 @@ namespace TechnicalBlog.Controllers
 
                 _context.Add(blogPost);
                 await _context.SaveChangesAsync();
+
+
+               // Add tags selected by the end user
+                await _blogPostService.AddTagsToBlogPostAsync(selectedTags, blogPost.Id);
+                
+
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+            ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name");
             return View(blogPost);
         }
 
         // GET: BlogPosts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.BlogPosts == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var blogPost = await _context.BlogPosts.FindAsync(id);
+            var blogPost = await _context.BlogPosts.Include(b=>b.Tags).FirstOrDefaultAsync(b=> b.Id == id);
+
             if (blogPost == null)
             {
                 return NotFound();
             }
+            //Get tags associated with the blogposts
+            IEnumerable<int> blogPostTags = blogPost.Tags.Select(t => t.Id);
+
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+            ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name", blogPostTags);
             return View(blogPost);
         }
 
@@ -124,7 +142,7 @@ namespace TechnicalBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,ImageType,ImageData,Slug,LastUpdated,DateCreated,BlogPostImage")] BlogPost blogPost)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,ImageType,ImageData,Slug,LastUpdated,DateCreated,BlogPostImage")] BlogPost blogPost, IEnumerable<int> selectedTags)
         {
             if (id != blogPost.Id)
             {
@@ -150,6 +168,7 @@ namespace TechnicalBlog.Controllers
                     {
                         ModelState.AddModelError("Title", "A similiar Title or Slug has already been used!");
                         ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+                        //ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name");
                         return View(blogPost);
                     }
                     blogPost.Slug = blogPost.Title!.Slugify();
@@ -157,6 +176,15 @@ namespace TechnicalBlog.Controllers
 
                     _context.Update(blogPost);
                     await _context.SaveChangesAsync();
+
+                    //Remove current tags
+
+                    await _blogPostService.RemoveAllBlogPostTagsAysnc(blogPost.Id);
+
+                    // Add seleccted tags to blogPost
+
+                    await _blogPostService.AddTagsToBlogPostAsync(selectedTags, blogPost.Id);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -172,6 +200,7 @@ namespace TechnicalBlog.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+            //ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name");
             return View(blogPost);
         }
 
