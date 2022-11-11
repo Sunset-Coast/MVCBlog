@@ -15,6 +15,7 @@
 }
 
 <!-- Start Author Area  -->
+<div class="row">
 <div class="axil-author-area axil-author-banner bg-color-grey">
     <div class="container">
         <div class="row">
@@ -28,7 +29,7 @@
                         </div>
                         <div class="media-body">
                             <div class="author-info">
-                                <h1 class="title"><a href="#">Jacqueline Thomas</a></h1>
+                                <h1 class="title"><a href="#">@Model.FirstOrDefault().Creator?.FullName</a></h1>
                                 <span class="b3 subtitle">Full-Stack Software Developer</span>
                             </div>
                             <div class="content">
@@ -92,7 +93,7 @@
                                     <h6 class="post-author-name">
                                         <a class="hover-flip-item-wrapper" href="author.html">
                                             <span class="hover-flip-item">
-                                                <span data-text="Jacqueline Thomas">Jacqueline Thomas</span>
+                                                <span data-text="@post.Creator?.FullName">@post.Creator?.FullName</span>
                                             </span>
                                         </a>
                                     </h6>
@@ -115,16 +116,18 @@
                 </div>
                 <!-- End Post List  -->
               }
-            </div>
+                    <div>
+                        <div>
+                            Page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
+                        </div>
+                        <div>
+                            @Html.PagedListPager(Model, pageNum => Url.Action("Index", new {pageNum} ))
+                        </div>
+                    </div>
+          
+          </div>
 
-            <div>
-                <div>
-                    Page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
-</div>
-                <div>
-                    @Html.PagedListPager(Model, pageNum => Url.Action("Index", new {pageNum} ))
-                </div>
-            </div>
+          
 
             <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">
                   <partial name= "_Sidebar" />
@@ -187,5 +190,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- End Instagram Area  -->

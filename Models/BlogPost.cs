@@ -7,6 +7,8 @@ namespace TechnicalBlog.Models
     public class BlogPost
     {
         //Primary Key
+        [Required]
+        public string? CreatorId { get; set; }
         public int Id { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.", MinimumLength = 2)]
@@ -38,5 +40,7 @@ namespace TechnicalBlog.Models
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
         //A relationship to the Tag model
         public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
+
+        public virtual BlogUser? Creator { get; set; }
     }
 }

@@ -34,6 +34,18 @@ namespace TechnicalBlog.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> SearchIndex(string searchString, int? pageNum)
+        {
+            int pageSize = 3;
+            int page = pageNum ?? 1;
+
+            ViewData["SearchString"] = searchString;
+
+            IPagedList<BlogPost> model = _blogPostService.SearchBlogPosts(searchString).ToPagedList(page, pageSize);
+
+
+            return View(nameof(Index), model);
+        }
         public IActionResult Privacy()
         {
             return View();

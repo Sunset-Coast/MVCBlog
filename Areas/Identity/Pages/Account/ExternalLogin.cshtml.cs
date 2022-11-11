@@ -85,6 +85,15 @@ namespace TechnicalBlog.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "First Name")]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.")]
+            public string FirstName { get; set; }
+            [Required]
+            [Display(Name = "Last Name")]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.")]
+            public string LastName { get; set; }
         }
         
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -202,7 +211,11 @@ namespace TechnicalBlog.Areas.Identity.Pages.Account
         {
             try
             {
-                return Activator.CreateInstance<BlogUser>();
+                BlogUser user = Activator.CreateInstance<BlogUser>();
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                return (user);
+               
             }
             catch
             {

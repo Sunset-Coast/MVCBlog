@@ -5,7 +5,6 @@ namespace TechnicalBlog.Services.Interfaces
     public interface IBlogPostService
     {
         public Task AddTagsToBlogPostAsync(IEnumerable<int> tagIds, int blogPostId);
-        public Task<bool> ValidateSlugAsync(string title, int blogPostId);
 
         public Task<List<BlogPost>> GetAllBlogPostsAsync();
 
@@ -19,5 +18,7 @@ namespace TechnicalBlog.Services.Interfaces
 
    
         public Task RemoveAllBlogPostTagsAysnc(int blogPostId);
+        public IEnumerable<BlogPost> SearchBlogPosts(string searchString);
+        public Task<bool> ValidateSlugAsync(string title, int blogPostId);
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TechnicalBlog.Data;
@@ -11,9 +12,10 @@ using TechnicalBlog.Data;
 namespace TechnicalBlog.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221111163819_AddedCreator_0002")]
+    partial class AddedCreator_0002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,7 +190,6 @@ namespace TechnicalBlog.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("CreatorId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
@@ -476,9 +477,7 @@ namespace TechnicalBlog.Data.Migrations
 
                     b.HasOne("TechnicalBlog.Models.BlogUser", "Creator")
                         .WithMany("BlogPosts")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatorId");
 
                     b.Navigation("Category");
 
