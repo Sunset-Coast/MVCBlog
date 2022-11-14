@@ -42,6 +42,7 @@ namespace TechnicalBlog.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+   
     
 
         // GET: BlogPosts/Details/5
@@ -156,7 +157,7 @@ namespace TechnicalBlog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,ImageType,ImageData,Slug,LastUpdated,DateCreated,BlogPostImage")] BlogPost blogPost, IEnumerable<int> selectedTags)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CreatorId,CategoryId,Abstract,IsDeleted,IsPublished,ImageType,ImageData,Slug,LastUpdated,DateCreated,BlogPostImage")] BlogPost blogPost, IEnumerable<int> selectedTags)
         {
             if (id != blogPost.Id)
             {

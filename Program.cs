@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using TechnicalBlog.Data;
 using TechnicalBlog.Models;
 using TechnicalBlog.Services;
@@ -39,6 +41,28 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 //Full control of mvc
 builder.Services.AddMvc();
 
+
+//Add SwashBuckle aka swagger
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Technical Blog",
+        Version = "v1",
+        Description = "Serve up Blog Data .Net 6 Apis",
+        Contact = new OpenApiContact
+        {
+            Name = "J.Thomas",
+            Email = "veparity@gmail.com",
+            Url = new Uri("https://www.linkedin.com/in/jacqueline-thomas-0757221b4")
+        }
+    });
+    var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+});
+
+
 var app = builder.Build();
 
 //Todo: Call Managed data
@@ -60,6 +84,18 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PublicAPI v1");
+    c.InjectStylesheet("/css/swagger.css");
+    c.InjectJavascript("/js/swagger.js");
+
+    c.DocumentTitle = "Technical Blog API";
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

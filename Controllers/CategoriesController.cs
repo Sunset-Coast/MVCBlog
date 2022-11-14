@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechnicalBlog.Data;
 using TechnicalBlog.Models;
+using TechnicalBlog.Services;
 using TechnicalBlog.Services.Interfaces;
+using X.PagedList;
 
 namespace TechnicalBlog.Controllers
 {
@@ -29,21 +31,28 @@ namespace TechnicalBlog.Controllers
         }
 
         // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int? pageNum)
         {
-            if (id == null || _context.Categories == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            int pageSize = 3;
+            int page = pageNum ?? 1;
+
+        
+
+
+        IPagedList<BlogPost> blogPosts =  _context.BlogPosts.Where(b=> b.CategoryId == id && b.IsDeleted == false && b.IsPublished == true)
+                                           .Include(b => b.Comments).Include(b => b.Category).Include(b => b.Creator).Include(b => b.Tags).OrderByDescending(b => b.DateCreated).ToPagedList(page, pageSize);
+
+            if (blogPosts == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(blogPosts);
         }
 
         // GET: Categories/Create

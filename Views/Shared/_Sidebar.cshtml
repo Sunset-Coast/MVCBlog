@@ -24,7 +24,7 @@
             @foreach (Category category in (await BlogPostService.GetCategoriesAsync()).Take(4)){
 
             <li class="cat-item">
-                <a href="#" class="inner" @*asp-controller="Category" asp-action="Details" asp-route-slug="@blogPost.Slug" class="inner"*@>
+                    <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id" class="inner">
                     <div class="thumbnail">
                             <img src="@ImageService.ConvertByteArrayToFile(category.ImageData!, category.ImageType!, (int)DefaultImage.CategoryImage)" alt="Post Images">
                     </div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -96,9 +97,20 @@ namespace TechnicalBlog.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", comment.AuthorId);
-            ViewData["BlogPostId"] = new SelectList(_context.BlogPosts, "Id", "Content", comment.BlogPostId);
-            return View(comment);
+            if (User.IsInRole("Administrator") || User.IsInRole("Moderator") || comment.AuthorId == _userManager.GetUserId(User))
+            {
+                //ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", comment.AuthorId);
+                //ViewData["BlogPostId"] = new SelectList(_context.BlogPosts, "Id", "Content", comment.BlogPostId);
+                return View(comment);
+            }
+            else
+            {
+                return Unauthorized();
+            }
+
+            //ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", comment.AuthorId);
+            //ViewData["BlogPostId"] = new SelectList(_context.BlogPosts, "Id", "Content", comment.BlogPostId);
+            //return View(comment);
         }
 
         // POST: Comments/Edit/5
@@ -112,6 +124,12 @@ namespace TechnicalBlog.Controllers
             {
                 return NotFound();
             }
+
+            if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator") && comment.AuthorId != _userManager.GetUserId(User))
+            {
+                return Unauthorized();
+            }
+          
 
             if (ModelState.IsValid)
             {
@@ -139,6 +157,7 @@ namespace TechnicalBlog.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Comments == null)
@@ -161,6 +180,7 @@ namespace TechnicalBlog.Controllers
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Comments == null)
