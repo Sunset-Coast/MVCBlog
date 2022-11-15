@@ -148,7 +148,7 @@ audio:not([controls]) {
 }
 
 a {
-  color: var(--color-heading);
+
   text-decoration: none;
   outline: none;
 }
@@ -158,7 +158,7 @@ a:focus,
 a:active {
   text-decoration: none;
   outline: none;
-  color: var(--color-primary);
+  
 }
 
 a:focus {
@@ -7452,9 +7452,9 @@ ul.social-share-transparent li a {
   line-height: var(--line-height-b3);
   display: block;
 }
-ul.social-share-transparent li a:hover {
+/*ul.social-share-transparent li a:hover {
   color: var(--color-primary) !important;
-}
+}*/
 ul.size-md li a {
   font-size: 16px;
   line-height: 22px;
@@ -11674,6 +11674,7 @@ Instagram Styles
 =============================*/
 .axil-footer-style-1 {
   padding: 40px 0;
+ 
 }
 .axil-footer-style-1 .footer-top .inner {
   padding-bottom: 20px;
@@ -11787,7 +11788,7 @@ Instagram Styles
   transition: 0.3s;
 }
 .footer-mainmenu .footer-widget ul.ft-menu-list li a:hover {
-  color: var(--color-primary) !important;
+  color: var(--color-primary);
 }
 
 .axil-footer-style-1.footer-variation-2 .footer-widget {

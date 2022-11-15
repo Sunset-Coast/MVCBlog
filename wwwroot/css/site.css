@@ -1,3 +1,13 @@
+:root {
+    --color-primary: #F2E9E4;
+    --color-secondary: #C9ADA7;
+    --color-grey: #9A8C98;
+    --color-blue: #4A4E69;
+    --color-dark: #22223B;
+    --color-pop: #f20089;
+}
+
+
 html {
   font-size: 14px;
 }
@@ -15,8 +25,32 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: var(--color-blue) !important;
 }
 
 .ck-editor__editable_inline {
     min-height: 500px;
+}
+
+.authorPic{
+    max-height: 250px;
+}
+
+.authorHead {
+    background-color: var(--color-primary);
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: var(--color-pop) !important;
+}
+
+social-share-transparent:hover{
+    color: var(--color-pop);
+}
+
+.header{
+    background-color: var(--color-dark) !important;
+
 }
