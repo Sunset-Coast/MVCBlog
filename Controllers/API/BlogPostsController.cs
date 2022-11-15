@@ -38,9 +38,8 @@ namespace TechnicalBlog.Controllers.API
         {
             num = num == 0 ? 3 : num;
 
-            List<BlogPost> blogPosts = await _blogPostService.GetRecentBlogPostAsync(num);
+            return await _context.BlogPosts.Where(b => b.IsDeleted == false && b.IsPublished == true).OrderByDescending(b => b.DateCreated).Take(num).ToListAsync();
 
-            return blogPosts;
         }
 
         // GET: api/BlogPosts/5
