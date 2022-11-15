@@ -38,9 +38,9 @@ namespace TechnicalBlog.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            List<BlogPost> blogPosts = await _context.BlogPosts.ToListAsync();
-            //var applicationDbContext = _context.BlogPosts.Include(b => b.Category);
-            return View(blogPosts); /*View(await applicationDbContext.ToListAsync());*/
+           
+            var applicationDbContext = _context.BlogPosts.Include(b => b.Category);
+            return  View(await applicationDbContext.ToListAsync());
         }
 
    

@@ -30,7 +30,7 @@ namespace TechnicalBlog.Controllers
 
             IPagedList<BlogPost> model = (await _blogPostService.GetAllBlogPostsAsync()).Where(b=> b.IsDeleted == false && b.IsPublished == true).ToPagedList(page, pageSize);
 
-
+         
             return View(model);
         }
 
