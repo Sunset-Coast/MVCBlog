@@ -62,8 +62,14 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
 });
 
+builder.Services.AddCors(obj =>
+{
+    obj.AddPolicy("DefaultPolicy",
+        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 
 var app = builder.Build();
+app.UseCors("DefaultPolicy");
 
 //Todo: Call Managed data
 
