@@ -54,3 +54,16 @@ social-share-transparent:hover{
     background-color: var(--color-dark) !important;
 
 }
+
+
+.ck-editor__editable_inline {
+    min-height: 600px;
+}
+
+.form-check-input {
+    position: relative !important;
+    opacity: 1 !important;
+    width: initial !important;
+    height: 1rem !important;
+    margin: initial !important;
+}

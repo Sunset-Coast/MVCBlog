@@ -83,7 +83,7 @@ namespace TechnicalBlog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,BlogPostImage")] BlogPost blogPost, IEnumerable<int> selectedTags)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,BlogPostImage")] BlogPost blogPost, string StringTags)
         {
 
             ModelState.Remove("CreatorId");
@@ -118,7 +118,7 @@ namespace TechnicalBlog.Controllers
 
 
                // Add tags selected by the end user
-                await _blogPostService.AddTagsToBlogPostAsync(selectedTags, blogPost.Id);
+                await _blogPostService.AddTagsToBlogPostAsync(StringTags, blogPost.Id);
                 
 
 

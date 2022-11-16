@@ -5,6 +5,7 @@ namespace TechnicalBlog.Services.Interfaces
     public interface IBlogPostService
     {
         public Task AddTagsToBlogPostAsync(IEnumerable<int> tagIds, int blogPostId);
+        public Task AddTagsToBlogPostAsync(string tagNames, int blogPostId);
 
         public Task<List<BlogPost>> GetAllBlogPostsAsync();
 
