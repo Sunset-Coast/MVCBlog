@@ -7977,7 +7977,7 @@ Header Styles
   visibility: visible;
   opacity: 1;
 }
-.axil-header.header-dark {
+/*.axil-header.header-dark {
   background: var(--color-extra04);
 }
 .axil-header.header-dark .axil-search.form-group input {
@@ -7994,7 +7994,7 @@ Header Styles
 .axil-header.header-dark .metabar-block li.icon a:hover {
   background: var(--color-primary);
   color: #fff;
-}
+}*/
 .axil-header .logo a {
   display: block;
 }
@@ -8143,7 +8143,7 @@ button.search-button i {
   color: #fff;
 }
 
-@media only screen and (max-width: 575px) {
+/*@media only screen and (max-width: 575px) {
   .axil-header.header-dark .header-search .header-search-form .axil-search.form-group .search-button i {
     color: var(--color-body);
   }
@@ -8151,7 +8151,7 @@ button.search-button i {
     background: var(--color-extra05);
     color: var(--color-lightest);
   }
-}
+}*/
 /*--------------------------
     Header Style Three  
 ---------------------------*/
@@ -11382,7 +11382,7 @@ Instagram Styles
 /*--------------------
     Dark Version  
 --------------------*/
-.bg-color-black h1,
+/*.bg-color-black h1,
 .bg-color-black h2,
 .bg-color-black h3,
 .bg-color-black h4,
@@ -11410,7 +11410,7 @@ Instagram Styles
 }
 .bg-color-black .content-block .post-meta .hover-flip-item span::after {
   color: var(--color-primary);
-}
+}*/
 
 /*------------------
     Author Styles  
@@ -11861,13 +11861,13 @@ Instagram Styles
   color: #ffffff;
 }
 
-.axil-footer-style-1.footer-variation-three .logo img.dark-logo {
+/*.axil-footer-style-1.footer-variation-three .logo img.dark-logo {
   display: none;
 }
 
 .copyright-area .copyright-left .logo img.dark-logo {
   display: block;
-}
+}*/
 
 .copyright-area .copyright-left .logo img.light-logo {
   display: none;
@@ -11876,7 +11876,7 @@ Instagram Styles
 /* -----------------------------
     Theme Dark Version Styles  
 --------------------------------*/
-body.active-dark-mode {
+/*body.active-dark-mode {
   color: #ffffff;
   background: #212121;
 }
@@ -11902,10 +11902,10 @@ body.active-dark-mode h6 {
 }
 body.active-dark-mode a {
   color: #ffffff;
-}
+}*/
 
 /* Elements  */
-body.active-dark-mode ul.social-with-text li a i {
+/*body.active-dark-mode ul.social-with-text li a i {
   background: #212121;
   color: #878787;
 }
@@ -11938,12 +11938,12 @@ body.active-dark-mode ul li {
 
 body.active-dark-mode .axil-header.header-style-3 .header-top .social-share-transparent li a {
   color: #878787;
-}
+}*/
 
 /*--------------------
  Header Area  
 ----------------------*/
-body.active-dark-mode .axil-search.form-group input {
+/*body.active-dark-mode .axil-search.form-group input {
   background: #242424;
   color: #ffffff;
 }
@@ -11971,7 +11971,7 @@ body.active-dark-mode .axil-header .logo a img.light-logo {
 
 body.active-dark-mode .axil-header .logo a img.dark-logo {
   display: none;
-}
+}*/
 
 /*body.active-dark-mode .axil-footer-style-1.footer-variation-2 .footer-top::before,
 body.active-dark-mode .axil-footer-style-1.footer-variation-2 .footer-top::after {
@@ -11979,14 +11979,14 @@ body.active-dark-mode .axil-footer-style-1.footer-variation-2 .footer-top::after
 }*/
 
 /* Slider Style One  */
-body.active-dark-mode .axil-slide.slider-style-1 .content-block .post-content {
+/*body.active-dark-mode .axil-slide.slider-style-1 .content-block .post-content {
   background: #1A1A1A;
-}
+}*/
 
 /*------------------------
     Post Content  
 -------------------------*/
-body.active-dark-mode .content-block.post-horizontal {
+/*body.active-dark-mode .content-block.post-horizontal {
   border-color: #1A1A1A;
 }
 
@@ -12046,12 +12046,12 @@ body.active-dark-mode .content-block.post-list-view:hover .post-content {
 
 body.active-dark-mode .content-block.modern-post-style .post-thumbnail::before {
   background: url(../images/icons/shape-02.png);
-}
+}*/
 
 /*-------------------
     BLog Sidebar  
 --------------------*/
-body.active-dark-mode .axil-single-widget {
+/*body.active-dark-mode .axil-single-widget {
   background: #181818;
 }
 
@@ -12065,12 +12065,12 @@ body.active-dark-mode .axil-single-widget.widget_categories ul li.cat-item .inne
 
 body.active-dark-mode .axil-single-widget.widget_categories {
   background: transparent !important;
-}
+}*/
 
 /*-------------------------
     Slick Slider   
 --------------------------*/
-body.active-dark-mode .axil-slick-arrow .slide-arrow {
+/*body.active-dark-mode .axil-slick-arrow .slide-arrow {
   background: #050505;
   border: 1px solid #050505;
 }
@@ -12101,7 +12101,7 @@ body.active-dark-mode .slider-activation.axil-slick-arrow .slide-arrow i {
 
 body.active-dark-mode .slider-activation.axil-slick-arrow .slide-arrow:hover i {
   color: var(--color-primary);
-}
+}*/
 
 /*-----------------------
     Footer Style  
@@ -12129,7 +12129,7 @@ body.active-dark-mode .axil-footer-style-1.footer-variation-2 .logo img.white-lo
 /*-----------------------
     Home Creative  
 ------------------------*/
-body.active-dark-mode .axil-slide.slider-style-3 {
+/*body.active-dark-mode .axil-slide.slider-style-3 {
   background: #1A1A1A;
 }
 
@@ -12146,12 +12146,12 @@ body.active-dark-mode .axil-slide.slider-style-3 .content-block .post-number spa
 
 body.active-dark-mode .axil-slide.slider-style-3 .content-block {
   border-bottom: 2px solid #212121;
-}
+}*/
 
 /*----------------------
 Seo Blog  
 ----------------------*/
-body.active-dark-mode .header-top {
+/*body.active-dark-mode .header-top {
   background: #212121;
 }
 
@@ -12162,11 +12162,11 @@ body.active-dark-mode .header-top .header-top-nav li a {
 body.active-dark-mode .axil-header.header-style-6 .metabar-block li.icon a {
   color: #ffffff;
 }
-
+*/
 /*-----------------------
     Blog Details  
 -----------------------*/
-body.active-dark-mode .axil-single-widget .tagcloud a {
+/*body.active-dark-mode .axil-single-widget .tagcloud a {
   border: 1px solid #050505;
 }
 
@@ -12183,11 +12183,11 @@ body.active-dark-mode .comment-list .comment .reply-edit a.comment-reply-link .h
 body.active-dark-mode .comment-list .comment .comment-text p {
   color: #c7c5c5;
 }
-
+*/
 /*---------------------
     Home Seo  
 ---------------------*/
-body.active-dark-mode .copyright-area .copyright-left .logo img.dark-logo {
+/*body.active-dark-mode .copyright-area .copyright-left .logo img.dark-logo {
   display: none;
 }
 
@@ -12197,12 +12197,12 @@ body.active-dark-mode .copyright-area .copyright-left .logo img.dark-logo {
 
 body.active-dark-mode .copyright-area .copyright-left .logo img.light-logo {
   display: block;
-}
+}*/
 
 /*---------------- 
 Home Tech  
 ----------------*/
-body.active-dark-mode .axil-header.header-style-3 .header-top,
+/*body.active-dark-mode .axil-header.header-style-3 .header-top,
 body.active-dark-mode .axil-header.header-style-4 .header-top {
   background: #111111;
 }
@@ -12238,12 +12238,12 @@ body.active-dark-mode .mainmenu-nav ul.mainmenu > li.megamenu-wrapper .megamenu-
 
 body.active-dark-mode .mainmenu-nav ul.mainmenu > li.menu-item-has-children .axil-submenu {
   background: #111111;
-}
+}*/
 
 /*-----------------------
     Blog Details  
 -----------------------*/
-body.active-dark-mode .banner-single-post.post-formate .content-block .post-content .post-meta-wrapper {
+/*body.active-dark-mode .banner-single-post.post-formate .content-block .post-content .post-meta-wrapper {
   border-color: #333333;
 }
 
@@ -12390,5 +12390,5 @@ body.active-dark-mode .axil-footer-style-1 .footer-top .inner {
   body.active-dark-mode .hamburger-menu .hamburger-inner .icon {
     background: #242424;
     color: #ffffff;
-  }
+  }*/
 }

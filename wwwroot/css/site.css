@@ -183,6 +183,12 @@ social-share-transparent:hover{
     margin: initial !important;
 }
 
+.btn{
+    background-color: var(--color-light);
+    border-style: solid;
+    border-color: var(--color-pop);
+}
+
 /* Widgets */
 
 .widget-title{

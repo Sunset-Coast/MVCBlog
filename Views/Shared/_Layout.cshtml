@@ -55,7 +55,7 @@
                         <div class="logo">
                             <a href="index.html">
                                @* <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Blogar logo">*@
-                                <img class="light-logo" src="~/img/Butterfly_BrownBG.png" alt="Blogar logo">
+                                <img src="~/img/Butterfly_BrownBG.png">
                             </a>
                         </div>
                     </div>
@@ -65,10 +65,9 @@
                                 <!-- Start Mainmanu Nav -->
                                 <ul class="mainmenu">
                                     <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                                    <li><a asp-controller="BlogPosts" asp-action="Index">BlogPosts</a></li>
-                                    <li><a asp-controller="Categories" asp-action="Index">Categories</a></li>
-                                  
-                                    <li><a asp-controller="Tags" asp-action="Index">Tags</a></li>
+                               @*     <li><a asp-action="Details" asp-controller="BlogPosts">Posts</a></li>
+                                    <li><a asp-action="Index" asp-controller="Categories">Category</a></li>*@
+                                    <li><a asp-action="Index" asp-controller="BlogPosts">Admin Section</a></li>
                                 </ul>
                                 <!-- End Mainmanu Nav -->
                             </nav>
@@ -107,7 +106,7 @@
                 <div class="logo">
                     <a href="index.html">
                       @*  <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">*@
-                        <img src="~/img/Butterfly_BrownBG.png" alt="Logo Images">
+                        <img src="~/img/Butterfly_BrownBG.png" >
                     </a>
                 </div>
                 <div class="mobile-close">
@@ -165,10 +164,10 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="copyright-left">
                             <div class="logo footerLogo">
-                                <a href="index.html">
+                                
                                   
-                                    <img class="light-logo" src="~/img/JacqBBrownBG.png" alt="Logo Images">
-                                </a>
+                                    <img src="~/img/JacqBBrownBG.png" >
+                                
                             </div>
                             </div>
                         </div>
