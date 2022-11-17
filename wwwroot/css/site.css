@@ -26,8 +26,17 @@ html {
 body {
   margin-bottom: 60px;
   background-color: var(--color-primary) !important;
+ 
 }
 
+
+.header{
+    color: var(--color-light) !important;
+}
+footer{
+    flex-shrink: 0 !important;
+    margin-bottom: 0;
+}
 
 
 /*Author Header*/
@@ -80,6 +89,7 @@ h1.title {
     font-family: var(--script-font) !important;
     padding-top: 1rem;
     padding-bottom: .5rem;
+    text-shadow: 0 0 .9px var(--color-dark);
 }
 
 i{
@@ -111,16 +121,23 @@ a:active {
     
 }
 
-.widget_search{
-    background-image: url(/img/orangeFlower.jpg);
-    overflow: hidden;
-    background-size: cover;
-   border-style: solid;
-   border-color: var(--color-light);
+.widget_search {
+    background-image: url(/img/orangeFlower.jpg) !important;
+    overflow: hidden !important;
+    background-size: cover !important;
+    border-style: solid;
+    border-color: var(--color-light);
 }
 
 a.inner{
     background-color: var(--color-secondary) !important;
+}
+
+h5 {
+    color: var(--color-light) !important;
+}
+ .widget-title{
+    color: var(--color-pop) !important;
 }
 /* End SideBar*/
 
@@ -128,7 +145,15 @@ a.inner{
     min-height: 500px;
 }
 
+a{
+    color: var(--color-primary) !important;
+}
 
+
+
+span{
+    color: var(--color-secondary) !important;
+}
 a:hover,
 a:focus,
 a:active {
@@ -158,6 +183,12 @@ social-share-transparent:hover{
     margin: initial !important;
 }
 
+/* Widgets */
+
+.widget-title{
+    color: var(--color-light) !important;
+}
+
 /* Footer Overrides*/
 
 .footer{
@@ -173,5 +204,7 @@ social-share-transparent:hover{
 .post-content{
     background-color: var(--color-light) !important;
     color: var(--color-dark) !important;
+    border-radius: 10px;
+    padding: .5rem;
 }
 

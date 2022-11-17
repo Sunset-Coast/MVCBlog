@@ -67,7 +67,7 @@
                                     <li><a asp-action="Index" asp-controller="Home">Home</a></li>
                                     <li><a asp-controller="BlogPosts" asp-action="Index">BlogPosts</a></li>
                                     <li><a asp-controller="Categories" asp-action="Index">Categories</a></li>
-                                    <li><a asp-controller="Comments" asp-action="Index">Comments</a></li>
+                                  
                                     <li><a asp-controller="Tags" asp-action="Index">Tags</a></li>
                                 </ul>
                                 <!-- End Mainmanu Nav -->
@@ -106,8 +106,8 @@
             <div class="mobile-menu-top">
                 <div class="logo">
                     <a href="index.html">
-                        <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">
-                        <img class="light-logo" src="~/assets/images/logo/logo-white2.png" alt="Logo Images">
+                      @*  <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">*@
+                        <img class="light-logo" src="~/img/Butterfly_BrownBG.png" alt="Logo Images">
                     </a>
                 </div>
                 <div class="mobile-close">
@@ -133,7 +133,10 @@
               
 
     <!-- Start Footer Area  -->
-    <div class="axil-footer-area axil-footer-style-1 footer">
+   
+
+
+  <footer class="axil-footer-area axil-footer-style-1 footer">
         <!-- Start Footer Top Area  -->
         <div class="footer-top">
             <div class="container">
@@ -143,8 +146,10 @@
                         <div class="inner d-flex align-items-center flex-wrap">
                             <h5 class="follow-title mb--0 mr--20">Follow Us</h5>
                             <ul class="social-icon  md-size justify-content-start">
-                              
-                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="https://github.com/Veparity"><i class="fab fa-github"></i></a></li>
+                                    <li><a href="mailto:veparity@gmail.com"><i class="far fa-envelope"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/in/jacqueline-thomas-0757221b4"><i class="fab fa-linkedin-in"></i></a></li>
+                                   
                             </ul>
                         </div>
                         <!-- End Post List  -->
@@ -161,15 +166,15 @@
                         <div class="copyright-left">
                             <div class="logo footerLogo">
                                 <a href="index.html">
-                                  @*  <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">*@
+                                    <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">
                                     <img class="light-logo" src="~/img/JacqBBrownBG.png" alt="Logo Images">
                                 </a>
                             </div>
                             <ul class="mainmenu justify-content-start">
                                 <li>
-                                    <a class="hover-flip-item-wrapper" href="#">
+                                        <a class="hover-flip-item-wrapper" href="mailto:veparity@gmail.com">
                                         <span class="hover-flip-item">
-                                            <span data-text="Contact Us">Let's Get in Touch'</span>
+                                            <span data-text="Let's Get in Touch">Let's Get in Touch</span>
                                         </span>
                                     </a>
                                 </li>
@@ -187,7 +192,7 @@
             </div>
         </div>
         <!-- End Copyright Area  -->
-    </div>
+    </footer>
     <!-- End Footer Area  -->
 </div>
 

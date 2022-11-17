@@ -478,6 +478,7 @@ html {
   margin: 0;
   padding: 0;
   font-size: 10px;
+  height: 100%;
 }
 
 body {
@@ -10495,7 +10496,7 @@ blockquote p {
   }
 }
 .about-author .media-body .content .description {
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 0;
 }
 @media only screen and (max-width: 767px) {
@@ -10662,12 +10663,12 @@ blockquote p {
 .banner-single-post.post-formate.post-standard .post-content ul.post-meta-list li::after {
   background: var(--color-lighter);
 }
-/*.banner-single-post.post-formate.post-standard .post-content ul.social-share-transparent li a {
+.banner-single-post.post-formate.post-standard .post-content ul.social-share-transparent li a {
   color: var(--color-lightest);
 }
 .banner-single-post.post-formate.post-standard .post-content ul.social-share-transparent li a:hover {
   color: var(--color-primary);
-}*/
+}
 .banner-single-post.post-formate.post-video .content-block .post-content, .banner-single-post.post-formate.post-text-only .content-block .post-content, .banner-single-post.post-formate.post-layout .content-block .post-content {
   padding-top: 0;
 }
@@ -11802,7 +11803,7 @@ Instagram Styles
 }
 .axil-footer-style-1.footer-variation-2 .footer-top {
   padding-bottom: 30px;
-  margin-bottom: 20px;
+ margin-bottom: 20px;
   padding-top: 30px;
   position: relative;
 }
@@ -11972,10 +11973,10 @@ body.active-dark-mode .axil-header .logo a img.dark-logo {
   display: none;
 }
 
-body.active-dark-mode .axil-footer-style-1.footer-variation-2 .footer-top::before,
+/*body.active-dark-mode .axil-footer-style-1.footer-variation-2 .footer-top::before,
 body.active-dark-mode .axil-footer-style-1.footer-variation-2 .footer-top::after {
   background: #333333;
-}
+}*/
 
 /* Slider Style One  */
 body.active-dark-mode .axil-slide.slider-style-1 .content-block .post-content {
@@ -12050,7 +12051,7 @@ body.active-dark-mode .content-block.modern-post-style .post-thumbnail::before {
 /*-------------------
     BLog Sidebar  
 --------------------*/
-/*body.active-dark-mode .axil-single-widget {
+body.active-dark-mode .axil-single-widget {
   background: #181818;
 }
 
@@ -12065,7 +12066,7 @@ body.active-dark-mode .axil-single-widget.widget_categories ul li.cat-item .inne
 body.active-dark-mode .axil-single-widget.widget_categories {
   background: transparent !important;
 }
-*/
+
 /*-------------------------
     Slick Slider   
 --------------------------*/
@@ -12105,7 +12106,7 @@ body.active-dark-mode .slider-activation.axil-slick-arrow .slide-arrow:hover i {
 /*-----------------------
     Footer Style  
 -------------------------*/
-body.active-dark-mode .axil-footer-style-1 {
+/*body.active-dark-mode .axil-footer-style-1 {
   background: #111111;
 }
 
@@ -12123,7 +12124,7 @@ body.active-dark-mode .axil-footer-style-1.footer-variation-2 .logo img.dark-log
 
 body.active-dark-mode .axil-footer-style-1.footer-variation-2 .logo img.white-logo {
   display: block;
-}
+}*/
 
 /*-----------------------
     Home Creative  
