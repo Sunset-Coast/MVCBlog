@@ -118,10 +118,10 @@
             </div>
             <ul class="mainmenu">
                     <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                    <li><a asp-action="Index" asp-controller="BlogPosts">BlogPosts</a></li>
+                    <li><a asp-action="Details" asp-controller="BlogPosts">Posts</a></li>
                     <li><a asp-action="Index" asp-controller="Categories">Category</a></li>
-                    <li><a asp-action="Index" asp-controller="Comments">Comments</a></li>
-                    <li><a asp-action="Index" asp-controller="Tags">Tags</a></li>
+                    <li><a asp-action="Index" asp-controller="BlogPosts">Admin Section</a></li>
+                  
                     <partial name="_LoginPartial" />
             </ul>
            
@@ -138,12 +138,12 @@
 
   <footer class="axil-footer-area axil-footer-style-1 footer">
         <!-- Start Footer Top Area  -->
-        <div class="footer-top">
+            <div class="footer-top">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- Start Post List  -->
-                        <div class="inner d-flex align-items-center flex-wrap">
+                            <div class="inner d-flex align-items-center justify-content-center flex-wrap">
                             <h5 class="follow-title mb--0 mr--20">Follow Us</h5>
                             <ul class="social-icon  md-size justify-content-start">
                                     <li><a href="https://github.com/Veparity"><i class="fab fa-github"></i></a></li>
@@ -162,15 +162,18 @@
         <div class="copyright-area">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-9 col-md-12">
+                    <div class="col-lg-4 col-md-12">
                         <div class="copyright-left">
                             <div class="logo footerLogo">
                                 <a href="index.html">
-                                    <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">
+                                  
                                     <img class="light-logo" src="~/img/JacqBBrownBG.png" alt="Logo Images">
                                 </a>
                             </div>
-                            <ul class="mainmenu justify-content-start">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <ul class="mainmenu justify-content-lg-center justify-content-start">
                                 <li>
                                         <a class="hover-flip-item-wrapper" href="mailto:veparity@gmail.com">
                                         <span class="hover-flip-item">
@@ -182,8 +185,9 @@
                           
                             </ul>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-12">
+                       
+                   
+                    <div class="col-lg-4 col-md-12">
                         <div class="copyright-right text-start text-lg-end mt_md--20 mt_sm--20">
                             <p class="b3">All Rights Reserved © 2022</p>
                         </div>
