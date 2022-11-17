@@ -3,16 +3,87 @@
 @model TechnicalBlog.Models.BlogPost
 
 @inject IImageService ImageService
+@inject IBlogPostService BlogPostService
 
 @{
     ViewData["Title"] = "Edit";
+    var tags = (await BlogPostService.GetTagsAsync()).OrderBy(t => t.BlogPosts.Count);
 }
 
-<h1>Edit</h1>
 
-<h4>BlogPost</h4>
+
+<h4>Edit your BlogPosts</h4>
 <hr />
-<div class="row">
+
+
+<main class="container mt-5">
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <input type="hidden" asp-for="ImageType" />
+        <input type="hidden" asp-for="ImageData" />
+        <input type="hidden" asp-for="DateCreated" />
+        <input type="hidden" asp-for="LastUpdated" />
+        <input type="hidden" asp-for="Slug" />
+        <input type="hidden" asp-for="CreatorId" />
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Abstract" class="control-label"></label>
+                    <textarea asp-for="Abstract" class="form-control" rows="1"></textarea>
+                    <span asp-validation-for="Abstract" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label">Category</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BlogPostImage" class="control-label">Blog Post Image</label>
+                    <img class="img-fluid border rounded-3 m-2" style="max-height: 250px;" src="~/img/DefaultBlogImage.svg" id="blogImage">
+                    <input asp-for="BlogPostImage" type="file" class="form-control mt-3 pt-2" accept=".png,.jpg,.jpeg,.gif"
+                           onchange="document.getElementById('blogImage').src = window.URL.createObjectURL(this.files[0])" />
+                </div>
+            </div>
+            <div class="col-12 col-lg-8">
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea asp-for="Content" id="editor" class="form-control editor"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tags"></label>
+                    <input class="form-control" type="text" id="tagInput" name="StringTags" autocomplete="off" />
+                    <div class="tagcloud axil-single-widget mt-2" style="display:none">
+                        @foreach (Tag tag in tags)
+                        {
+
+                            <a onclick="addTag(this)">@tag.Name</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-end mt-3">
+            <div class="form-group form-check d-flex my-auto">
+                <label class="form-check-label my-auto me-4">
+                    <input class="form-check-input me-3" asp-for="IsPublished" />&nbsp; Publish?
+                </label>
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </form>
+    <div class="mt-5">
+        <a asp-action="Index">Back to List</a>
+    </div>
+</main>
+
+@*<div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" asp-controller="BlogPosts" enctype="multipart/form-data" medthod="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -78,11 +149,9 @@
             </div>
         </form>
     </div>
-</div>
+</div>*@
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

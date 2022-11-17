@@ -35,7 +35,7 @@ namespace TechnicalBlog.Controllers
         }
 
         // GET: BlogPosts
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator, Moderator")]
         public async Task<IActionResult> Index()
         {
            

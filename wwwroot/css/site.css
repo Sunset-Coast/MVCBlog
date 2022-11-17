@@ -4,6 +4,7 @@
     --color-dark: rgb(78, 48, 41);
     --color-pop: #9C0C4F;
     --color-light: rgb(251, 246, 241);
+    --script-font: 'Meow Script', sans-serif;
 }
 
 
@@ -31,15 +32,23 @@ body {
 
 /*Author Header*/
 
-.authorBox{
-    background-color: var(--color-primary);
+.authorBox {
+    /*  background-color: var(--color-primary);
   
     border-radius: 10px;
     border-style: groove;
     border-width: .5rem;
     border-color: var(--color-secondary);
-    padding: 3rem;
+    padding: 3rem;*/
 
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.7px);
+    -webkit-backdrop-filter: blur(5.7px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 2rem;
+ 
 }
 
 .authorPic{
@@ -55,14 +64,22 @@ body {
     height: 100%;
     background-position: center center;
     background-size: cover;
-    overflow: hidden;
+    overflow: hidden;  
+}
+
+p.b1 {
+    color: var(--color-light) !important;
+    font-weight: 500;
     
 }
 
 
 
-h1.title{
-    font-size: 4rem !important;
+h1.title {
+    font-size: 7.8rem !important;
+    font-family: var(--script-font) !important;
+    padding-top: 1rem;
+    padding-bottom: .5rem;
 }
 
 i{
@@ -78,7 +95,8 @@ a:active {
 
 .subtitle{
     margin-top: 3rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 400;
     color: var(--color-light) !important;
     line-height: 3.5rem !important;
 }
@@ -151,3 +169,9 @@ social-share-transparent:hover{
     height: 100% !important;
 }
 /* End Footer Overrides*/
+
+.post-content{
+    background-color: var(--color-light) !important;
+    color: var(--color-dark) !important;
+}
+
