@@ -20,19 +20,19 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <!-- Start Single Slide  -->
-                                <div class="content-block">
+                                <div class="content-block boxx">
                                     <!-- Start Post Content  -->
-                                    <div class="post-content">
+                                    <div class="loginPage">
                                         <div class="post-cat">
                                             <div class="post-cat-list">
-                                                <a class="hover-flip-item-wrapper" href="#">
+                                               @* <a class="hover-flip-item-wrapper" href="#">
                                                     <span class="hover-flip-item">
                                                         <span data-text="FEATURED POST">FEATURED POST</span>
                                                     </span>
-                                                </a>
+                                                </a>*@
                                             </div>
                                         </div>
-                                        <h1 class="title text-center">
+                                        <h1 class="title text-center loginPage">
                                            @Model.Title
                                         </h1>
                                         <!-- Post Meta  -->
@@ -72,8 +72,8 @@
                 </div>
                 <!-- End Banner Area -->
                 <!-- Start Blog Details  -->
-                <div class="axil-post-details ">
-                    <p class="has-medium-font-size blogPosts">
+                <div class="axil-post-details boxx blogPosts">
+                    <p class="blogPosts">
                        @Model.Abstract
                     </p>
                 @*    <figure class="wp-block-image alignwide text-center">
@@ -87,7 +87,7 @@
                     @Html.Raw(Model.Content)
                 </p>
 
-                    <div class="tagcloud blogPosts">
+                    <div class="tagcloud">
                         @foreach(Tag tag in Model.Tags){
 
                         <a href="#">@tag.Name</a>
@@ -139,7 +139,7 @@
                     </div>*@
                     <!-- End Author  -->
                     <!-- Start Comment Form Area  -->
-                    <div class="axil-comment-area blogPosts">
+                    <div class="axil-comment-area">
                         <div class="axil-total-comment-post justify-content-center">
                         @*    <div class="title">
                                 <h4 class="mb--0">@Model.Comments.Count() Comments</h4>

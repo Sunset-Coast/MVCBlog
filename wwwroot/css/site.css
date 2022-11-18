@@ -201,6 +201,19 @@ social-share-transparent:hover{
     -webkit-backdrop-filter: blur(6.9px);
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
+.boxx {
+    padding: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.9px);
+    -webkit-backdrop-filter: blur(10.9px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
 
 .loginPage{
     color: var(--color-light) !important;
@@ -251,9 +264,8 @@ social-share-transparent:hover{
 
 
 .blogPosts{
-    background-color: var(--color-light) !important;
-    color: var(--color-dark) !important;
-    border-radius: 10px;
+   color: var(--color-light) !important;
+   font-weight: 500;
 }
 /* Widgets */
 
