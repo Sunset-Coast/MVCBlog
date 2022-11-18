@@ -1,5 +1,6 @@
 ﻿@model TechnicalBlog.Models.BlogPost
 @using TechnicalBlog.Services.Interfaces
+@using TechnicalBlog.Enums
 @inject IImageService ImageService
 
 @{
@@ -9,7 +10,7 @@
 
 
 <!-- Start Post Single Wrapper  -->
-<div class="post-single-wrapper axil-section-gap bg-color-white">
+<div class="post-single-wrapper axil-section-gap" id="optional-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
@@ -31,14 +32,16 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <h1 class="title">
+                                        <h1 class="title text-center">
                                            @Model.Title
                                         </h1>
                                         <!-- Post Meta  -->
                                         <div class="post-meta-wrapper">
                                             <div class="post-meta">
                                                 <div class="post-author-avatar border-rounded">
-                                                    <img src="~/img/DefaultContactImage.png" style="height:50%; width:50%" alt="Author Images">
+                                                 @*   @foreach(BlogPost post in Model.BlogPostsImage){
+                                                        <img src="@ImageService.ConvertByteArrayToFile(post.ImageData!, post.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
+                                                    }*@
                                                 </div>
                                                 <div class="content">
                                                     <h6 class="post-author-name">
@@ -54,12 +57,10 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <ul class="social-share-transparent justify-content-end">
-                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                           @* <ul class="social-share-transparent justify-content-end">
+                                             
                                                 <li><a href="#"><i class="fas fa-link"></i></a></li>
-                                            </ul>
+                                            </ul>*@
                                         </div>
                                     </div>
                                     <!-- End Post Content  -->
@@ -71,8 +72,8 @@
                 </div>
                 <!-- End Banner Area -->
                 <!-- Start Blog Details  -->
-                <div class="axil-post-details">
-                    <p class="has-medium-font-size">
+                <div class="axil-post-details ">
+                    <p class="has-medium-font-size blogPosts">
                        @Model.Abstract
                     </p>
                 @*    <figure class="wp-block-image alignwide text-center">
@@ -82,11 +83,11 @@
                             of achievement and excellence.
                         </figcaption>
                     </figure>*@
-                <p>
+                <p class="blogPosts">
                     @Html.Raw(Model.Content)
                 </p>
 
-                    <div class="tagcloud">
+                    <div class="tagcloud blogPosts">
                         @foreach(Tag tag in Model.Tags){
 
                         <a href="#">@tag.Name</a>
@@ -94,24 +95,22 @@
                       
                     </div>
 
-                    <div class="social-share-block">
+                  @*  <div class="social-share-block">
                         <div class="post-like">
                             <a href="#"><i class="fal fa-thumbs-up"></i><span>2.2k Like</span></a>
                         </div>
                         <ul class="social-icon icon-rounded-transparent md-size">
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                           
                             <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
                         </ul>
-                    </div>
+                    </div>*@
 
                     <!-- Start Author  -->
-                    <div class="about-author">
+                   @* <div class="about-author">
                         <div class="media">
                             <div class="thumbnail">
                                 <a href="#">
-                                    <img src="assets/images/post-images/author/author-b1.png" alt="Author Images">
+                                    <img src="~/img/CavePic.jpg" alt="Author Images">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -123,35 +122,30 @@
                                             </span>
                                         </a>
                                     </h5>
-                                    <span class="b3 subtitle">Sr. UX Designer</span>
+                                    <span class="b3 subtitle">SoftWare Developer</span>
                                 </div>
                                 <div class="content">
                                     <p class="b1 description">
-                                        At 29 years old, my favorite compliment is being
-                                        told that I look like my mom. Seeing myself in her image, like this
-                                        daughter up top, makes me so proud of how far I’ve come, and so thankful
-                                        for where I come from.
+                                       How do you get a computer drunk? Get it to take ScreenShots.
                                     </p>
                                     <ul class="social-share-transparent size-md">
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        
                                         <li><a href="#"><i class="far fa-envelope"></i></a></li>
                                         <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                     <!-- End Author  -->
                     <!-- Start Comment Form Area  -->
-                    <div class="axil-comment-area">
-                        <div class="axil-total-comment-post">
-                            <div class="title">
+                    <div class="axil-comment-area blogPosts">
+                        <div class="axil-total-comment-post justify-content-center">
+                        @*    <div class="title">
                                 <h4 class="mb--0">@Model.Comments.Count() Comments</h4>
-                            </div>
-                            <div class="add-comment-button cerchio">
-                                <a class="axil-button button-rounded" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Details", "BlogPosts", new { slug = Model.Slug }) tabindex="0"><span>Add Your Comment</span></a>
+                            </div>*@
+                            <div class="add-comment-button cerchio btn">
+                                <a class="" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Details", "BlogPosts", new { slug = Model.Slug }) tabindex="0"><span>Add Your Comment</span></a>
                             </div>
                         </div>
                         @if (User.Identity!.IsAuthenticated)
@@ -176,7 +170,7 @@
                                             </div>
                                         </div>
                                 
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-12 text-center">
                                             <div class="form-submit cerchio">
                                                 <input  type="submit"  class="axil-button button-rounded" value="Post Comment">
                                             </div>
@@ -188,7 +182,7 @@
                         }
 
                         <!-- Start Comment Area  -->
-                        <div class="axil-comment-area">
+                        <div class="axil-comment-area p-2">
                             <h4 class="title">@Model.Comments.Count() Comments</h4>
                             <ul class="comment-list">
                             @foreach(Comment comment in Model.Comments){

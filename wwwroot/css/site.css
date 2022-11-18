@@ -57,6 +57,8 @@ footer{
     -webkit-backdrop-filter: blur(5.7px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
  
 }
 
@@ -85,7 +87,7 @@ p.b1 {
 
 
 h1.title {
-    font-size: 7.8rem !important;
+    font-size: 7rem !important;
     font-family: var(--script-font) !important;
     padding-top: 1rem;
     padding-bottom: .5rem;
@@ -104,11 +106,11 @@ a:active {
 }
 
 .subtitle{
-    margin-top: 3rem;
+    margin-top: 1rem;
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--color-light) !important;
-    line-height: 3.5rem !important;
+    line-height: 2.5rem !important;
 }
 
 
@@ -170,6 +172,54 @@ social-share-transparent:hover{
 
 }
 
+/*Login*/
+
+#optional-wrapper {
+   
+    background-image: url(/img/orangeFlower.jpg) !important;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-size: cover;
+    overflow: hidden;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+.box {
+    padding: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.9px);
+    -webkit-backdrop-filter: blur(6.9px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.loginPage{
+    color: var(--color-light) !important;
+}
+
+.loginPage p a{
+    font-weight: 500;
+    color: white !important;
+    margin-top: 1rem;
+}
+
+.loginPage p a:hover{
+    text-decoration: underline;
+}
+
+.form-control{
+    background: var(--color-light) !important;
+    color: black;
+}
 
 .ck-editor__editable_inline {
     min-height: 600px;
@@ -184,11 +234,27 @@ social-share-transparent:hover{
 }
 
 .btn{
-    background-color: var(--color-light);
+    background-color: var(--color-pop);
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--color-light);
+    color: white !important;
+}
+
+.btn:hover{
+    background-color: var(--color-secondary);
     border-style: solid;
     border-color: var(--color-pop);
 }
 
+
+
+
+.blogPosts{
+    background-color: var(--color-light) !important;
+    color: var(--color-dark) !important;
+    border-radius: 10px;
+}
 /* Widgets */
 
 .widget-title{

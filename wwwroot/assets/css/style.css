@@ -9191,10 +9191,10 @@ Post List Style
 .content-block.modern-post-style .post-content .title {
   margin-bottom: 0;
 }
-.content-block.modern-post-style .post-thumbnail {
-  margin: 0 -35px;
+/*.content-block.modern-post-style .post-thumbnail {
+  margin: 0 -10px;
   position: relative;
-}
+}*/
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .content-block.modern-post-style .post-thumbnail {
     margin: 0 -20px;
@@ -10450,7 +10450,7 @@ blockquote p {
 }
 
 .about-author {
-  padding: 40px 0;
+  padding: 10px 0;
   border-bottom: 1px solid var(--color-lighter);
 }
 .about-author .media {
@@ -10462,13 +10462,13 @@ blockquote p {
 .about-author .thumbnail a img {
   border-radius: 100%;
   margin-right: 53px;
-  margin-bottom: 20px;
+ /* margin-bottom: 5px;*/
 }
-@media only screen and (max-width: 767px) {
+/*@media only screen and (max-width: 767px) {
   .about-author .thumbnail a img {
     margin-right: 20px;
   }
-}
+}*/
 .about-author .media-body {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
