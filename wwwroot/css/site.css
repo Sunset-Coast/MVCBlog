@@ -267,6 +267,11 @@ social-share-transparent:hover{
    color: var(--color-light) !important;
    font-weight: 500;
 }
+
+.blog{
+    color: var(--color-light) !important;
+    font-weight: 400;
+}
 /* Widgets */
 
 .widget-title{

@@ -83,7 +83,7 @@
                             of achievement and excellence.
                         </figcaption>
                     </figure>*@
-                <p class="blogPosts">
+                <p class="blogPosts blog">
                     @Html.Raw(Model.Content)
                 </p>
 
@@ -144,7 +144,7 @@
                         @*    <div class="title">
                                 <h4 class="mb--0">@Model.Comments.Count() Comments</h4>
                             </div>*@
-                            <div class="add-comment-button cerchio btn">
+                            <div class="add-comment-button cerchio btn-dark btn-black btn-rounded-pill p-2">
                                 <a class="" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Details", "BlogPosts", new { slug = Model.Slug }) tabindex="0"><span>Add Your Comment</span></a>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                         </span> <span class="required"></span>
                                     </p>
                                     <div class="row row--10">
-                       
+                      
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="message">Leave a Reply</label>
