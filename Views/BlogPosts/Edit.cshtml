@@ -163,4 +163,53 @@
                 console.error(error);
             });
     </script>
+
+    <script>
+        $(document).ready(function () {
+
+            // override the jQuery ":contains" selector to make it case insensitive
+            jQuery.expr[':'].contains = function (a, i, m) {
+                return $(a).text().toUpperCase()
+                    .indexOf(m[3].toUpperCase()) >= 0;
+            };
+            //Show tagcloud on input focus
+            $('#tagInput').focus(function () {
+                $('.tagcloud').show(300);
+            });
+
+            //hides tagcloud
+            $('form *:not("#tagInput")').focus(function () {
+                if ($('.tagcloud').is(':visible')) {
+                    $('.tagcloud').hide(300);
+                }
+            });
+
+            //searches tag cloud
+            $('#tagInput').keyup(function () {
+                let searchString = $(this).val().split(',').pop().trim();
+
+                $('.tagcloud > a:not(:contains(' + searchString + ') )').hide();
+                $('.tagcloud > a:contains(' + searchString + ')').show();
+            });
+        });
+        //el for element
+        //reset the tag cloud
+        function addTag(el) {
+            $('.tagcloud > a').show();
+            //get the name of the tag
+            let tagName = el.textContent + ', ';
+
+            let input = document.getElementById('tagInput');
+            // get array of currently entered tags
+            let currentTags = input.value.split(',');
+            //remove partially typed tag
+            currentTags.pop();
+            // add the full name of the new tag
+            currentTags.push(tagName);
+
+            input.value = currentTags.reduce((inputString, currentString) => inputString + ", " + currentString.trim());
+
+            input.focus();
+        }
+    </script>
 }
