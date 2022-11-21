@@ -73,12 +73,12 @@
               {
                 <!-- Start Post List  -->
                 <div class="content-block post-list-view mt--30">
-                    <div class="post-thumbnail">
+                    <div class="post-thumbnail posted">
                         <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@post.Slug">
                             <img src="@ImageService.ConvertByteArrayToFile(post.ImageData!, post.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
                         </a>
                     </div>
-                    <div class="post-content">
+                    <div class="post-content posted">
                         <div class="post-cat">
                             <div class="post-cat-list">
                                 <a class="hover-flip-item-wrapper" href="#">
@@ -120,12 +120,16 @@
                 </div>
                 <!-- End Post List  -->
               }
-                    <div>
-                        <div>
+                    <div class="row row-cols-1 g-5">
+                      @*  <div>
                             Page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
-                        </div>
-                        <div>
-                            @Html.PagedListPager(Model, pageNum => Url.Action("Index", new {pageNum} ))
+                        </div>*@
+                        <div class="col justify-content-center d-flex">
+                            @Html.PagedListPager(Model, pageNum => Url.Action("Index", new {pageNum} ),
+                            new PagedListRenderOptions{
+                                LiElementClasses = new string[] {"my-page-item"},
+                                PageClasses = new string[] {"my-page-link"}
+                            })
                         </div>
                     </div>
           
